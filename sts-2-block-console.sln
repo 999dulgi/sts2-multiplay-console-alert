@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sts2-block-console", "sts2-block-console.csproj", "{67FE0E4A-1695-4736-6893-3D14FD922ECE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67FE0E4A-1695-4736-6893-3D14FD922ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67FE0E4A-1695-4736-6893-3D14FD922ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67FE0E4A-1695-4736-6893-3D14FD922ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67FE0E4A-1695-4736-6893-3D14FD922ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7DC09F6-2218-4655-8DED-41D44D0481D4}
+	EndGlobalSection
+EndGlobal
