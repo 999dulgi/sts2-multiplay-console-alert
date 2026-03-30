@@ -2,35 +2,43 @@ using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Nodes.Debug;
 using System.Reflection;
 
 namespace Sts2BlockConsole;
+
+[ModInitializer("ModLoaded")]
+public static class MultiplayConsoleAlert
+{
+    public static void ModLoaded()
+    {
+        var bc = new BlockConsole();
+        var sceneTree = (SceneTree)Engine.GetMainLoop();
+        sceneTree.Root.CallDeferred(Node.MethodName.AddChild, bc);
+    }
+}
 
 [GlobalClass]
 public partial class BlockConsole : Node
 {
     private static BlockConsole? _instance;
     private Harmony? _harmony;
-    private CanvasLayer? _canvasLayer;
     private VBoxContainer? _container;
 
     public override void _Ready()
     {
         _instance = this;
 
-        _canvasLayer = new CanvasLayer { Layer = 128 };
-        _container = new VBoxContainer
-        {
-            AnchorTop = 1f,
-            AnchorBottom = 1f,
-            AnchorRight = 1f,
-            GrowVertical = Control.GrowDirection.Begin,
-        };
+        var canvasLayer = new CanvasLayer { Layer = 128 };
+
+        _container = new VBoxContainer();
         _container.SetAnchorsPreset(Control.LayoutPreset.BottomLeft);
+        _container.GrowVertical = Control.GrowDirection.Begin;
         _container.Position = new Vector2(16, -16);
-        _canvasLayer.AddChild(_container);
-        AddChild(_canvasLayer);
+
+        canvasLayer.AddChild(_container);
+        AddChild(canvasLayer);
 
         _harmony = new Harmony("com.sts2.block-console");
         _harmony.PatchAll(Assembly.GetExecutingAssembly());
@@ -77,6 +85,6 @@ static class Patch_NDevConsole_ProcessNetCommand
     static void Prefix(Player? player, string netCommand)
     {
         if (!LocalContext.IsMe(player))
-            BlockConsole.ShowNotification($"호스트가 콘솔 명령을 실행했습니다: [color=#aaaaaa]{netCommand}[/color]");
+            BlockConsole.ShowNotification($"{player}가 콘솔 명령을 실행했습니다: [color=#aaaaaa]{netCommand}[/color]");
     }
 }
